@@ -3,9 +3,16 @@ package com.supermacro;
 
 import java.util.ArrayList;
 
+import static com.supermacro.empType.INVENTORY_EMPLOYEE;
+
 public class InventoryEmp extends Employee{
+
+    public InventoryEmp()
+    {
+        employeeType = INVENTORY_EMPLOYEE;
+    }
+
     public static ArrayList<Product> inventory = new ArrayList<>();
-    employeeType = InventoryEmp;
 
     public void addProduct(Product p){
         if(!inventory.contains(p))
@@ -34,4 +41,7 @@ public ArrayList<Product> listProduct(){
 public ArrayList<Product> productProblems(){
         ArrayList<Products>
 }
+
+
+
 }

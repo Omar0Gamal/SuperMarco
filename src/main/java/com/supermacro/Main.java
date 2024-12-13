@@ -1,29 +1,33 @@
 package com.supermacro;
 import java.util.Scanner;
+import static com.supermacro.empType.NONE;
+import static com.supermacro.empType.ADMIN;
+import static com.supermacro.empType.MARKETING_EMPLOYEE;
+import static com.supermacro.empType.INVENTORY_EMPLOYEE;
+import static com.supermacro.empType.SALES_EMPLOYEE;
+
 
 public class Main {
-
 
     //logging function
     static empType logIN(String username, String password)
     {
-        empType employeetype;
 
         for(User a1 : User.users)
         {
             if(username.equalsIgnoreCase(a1.getUsername()))
             {
                 if(password.equalsIgnoreCase(a1.getPassword()))
-
+                    return a1.employeeType;
             }
         }
+        return NONE;
     }
     //-----------------------------------------------------------------------------------------
 
 
 
     //display menus
-
     static void displayAdminMenu(){
         System.out.println("1- Add Employee\n" +
                            "2- Remove Employee\n" +
@@ -40,7 +44,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         DatabaseManager db = new DatabaseManager();
 
-        System.out.println("Welcome to SuperMarco hypermarket!");
+        System.out.println("Welcome to SuperMarco!");
 
         //receiving the username and password
         System.out.print("Enter username: ");
@@ -49,7 +53,34 @@ public class Main {
         String givenPassword = input.nextLine();
 
 
+        //Logging in
+        empType employeeType = logIN(givenUsername, givenPassword);
 
+
+        //If credentials are incorrect
+        while(employeeType == NONE)
+        {
+            System.out.println("Incorrect Username or Password.\n Retry.");
+
+            System.out.print("Enter username: ");
+            givenUsername = input.nextLine();
+
+            System.out.println("Enter password: ");
+            givenPassword = input.nextLine();
+
+            employeeType = logIN(givenUsername, givenPassword);
+
+        }
+
+        switch(employeeType)
+        {
+
+            case ADMIN:
+                while()
+
+
+
+        }
 
 
 

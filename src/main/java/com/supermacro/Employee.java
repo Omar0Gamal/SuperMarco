@@ -1,6 +1,14 @@
 package com.supermacro;
 
 public class Employee extends User{
+
     int ID;
-    String name; //update msln
+    String name;
+
+    @Override
+    public String getUsername()
+    {
+        return this.;
+    }
+
 }

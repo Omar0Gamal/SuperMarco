@@ -1,5 +1,8 @@
 package com.supermacro;
 import java.util.ArrayList;
+
+import static com.supermacro.empType.SALES_EMPLOYEE;
+
 public class SalesEmp extends Employee{
 
     public static ArrayList<Order> orders = new ArrayList<>();

@@ -1,6 +1,8 @@
 package com.supermacro;
 
 public enum empType {
+
+    NONE(0),
     ADMIN(1),
     MARKETING_EMPLOYEE(2),
     INVENTORY_EMPLOYEE(3),
