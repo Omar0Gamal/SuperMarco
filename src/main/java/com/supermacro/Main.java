@@ -1,4 +1,5 @@
 package com.supermacro;
+import java.util.ArrayList;
 import java.util.Scanner;
 import static com.supermacro.empType.NONE;
 import static com.supermacro.empType.ADMIN;

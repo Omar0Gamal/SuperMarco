@@ -2,7 +2,7 @@ package com.supermacro;
 
 import java.util.ArrayList;
 
-public class User {
+public abstract class User {
 
     public empType employeeType;
     protected String username;
@@ -10,9 +10,7 @@ public class User {
     public static ArrayList <User> users = new ArrayList<>();
 
 
-    public void setUsername(String username){
-        this.username=username;
-    }
+    public abstract void setUsername();
 
     public String getUsername(){
         return username;
