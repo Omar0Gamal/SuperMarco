@@ -2,32 +2,16 @@ package com.supermacro;
 
 import java.util.ArrayList;
 
-public class User implements credentials{
+public abstract class User {
 
     public empType employeeType;
     private String username;
     private  String password;
     public static ArrayList <User> users = new ArrayList<>();
 
-    @Override
-    public void setUsername(String username){
-        this.username=username;
-    }
+    public abstract String getUsername();
 
-    @Override
-    public String getUsername(){
-        return username;
-    }
-
-    @Override
-    public void setPassword(String password){
-        this.password=password;
-    }
-
-    @Override
-    public String getPassword(){
-        return password;
-    }
+    public abstract String getPassword();
 
     // Ay Update
 }
