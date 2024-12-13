@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class User {
 
     public empType employeeType;
-    private String username;
-    private  String password;
+    protected String username;
+    protected   String password;
     public static ArrayList <User> users = new ArrayList<>();
 
 

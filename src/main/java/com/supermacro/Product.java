@@ -10,10 +10,12 @@ public class Product {
     private String description;
     private int quantity;
 
-    public Product (int price,String name,int productId,Date expDate,String description,int quantity) {
+
+    public Product (int price,String name,String expDate,String description,int quantity) {
         this.price = price;
         this.name = name;
-        this.productId = productId;
+        this.productId = count;
+        count++;
         this.expDate = expDate;
         this.description = description;
         this.quantity = quantity;

@@ -18,9 +18,12 @@ public class InventoryEmp extends Employee{
         if(!inventory.contains(p))
             inventory.add(p);
     }
-    public void deleteProduct(Product p){
+
+    public static void deleteProduct(Product p){
             inventory.remove(p);
     }
+
+    /*
     public void updateProduct(Product p){
         for(int i=0;i< inventory.size();i++){
             if(inventory.get(i).getProductId()==p.getProductId())
@@ -28,19 +31,22 @@ public class InventoryEmp extends Employee{
         }
 
     }
-    public Product searchProduct(String name){
+    */
+
+    public static Product searchProduct(String name){
         for(int i=0; i< inventory.size(); i++) {
             if(name== inventory.get(i).getName())
                 return inventory.get(i);
         }
         return null;
     }
-public ArrayList<Product> listProduct(){
+
+public static ArrayList<Product> listProduct(){
         return inventory;
 }
 public ArrayList<Product> productProblems(){
-        ArrayList<Products>
-}
+        ArrayList<Product>
+    }
 
 
 
