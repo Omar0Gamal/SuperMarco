@@ -6,11 +6,11 @@ public abstract class User {
 
     public empType employeeType;
     protected String username;
-    protected   String password;
+    protected String password;
     public static ArrayList <User> users = new ArrayList<>();
 
 
-    public abstract void setUsername();
+    public abstract void setUsername(String username);
 
     public String getUsername(){
         return username;

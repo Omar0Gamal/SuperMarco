@@ -3,6 +3,7 @@ package com.supermacro;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,16 +14,9 @@ public class DatabaseManager {
     private static final String CREATE_TABLE_STATEMENT = """
             CREATE TABLE IF NOT EXISTS Employee (
                 id INTEGER PRIMARY KEY,
-                name TEXT NOT NULL,
                 username TEXT NOT NULL,
                 password TEXT NOT NULL,
                 role TEXT NOT NULL
-            );
-            CREATE TABLE IF NOT EXISTS Admin (
-                id INTEGER PRIMARY KEY,
-                name TEXT NOT NULL,
-                username TEXT NOT NULL,
-                password TEXT NOT NULL
             );
             CREATE TABLE IF NOT EXISTS Product (
                 id INTEGER PRIMARY KEY,
@@ -33,7 +27,7 @@ public class DatabaseManager {
             CREATE TABLE IF NOT EXISTS Inventory (
                 product_id INTEGER PRIMARY KEY,
                 quantity INTEGER NOT NULL,
-                expiration_date DATE NOT NULL,
+                expiration_date TEXT NOT NULL,
                 FOREIGN KEY (product_id) REFERENCES Product(id)
             );
             """;
@@ -91,8 +85,6 @@ public class DatabaseManager {
             connection = getConnection();
             Statement s = connection.createStatement();
             s.executeUpdate("DROP TABLE IF EXISTS Employee;");
-            s.executeUpdate("DROP TABLE IF EXISTS Admin;");
-            s.executeUpdate("DROP TABLE IF EXISTS Customer;");
             s.executeUpdate("DROP TABLE IF EXISTS Product;");
             s.executeUpdate("DROP TABLE IF EXISTS Inventory;");
             s.close();
@@ -115,7 +107,6 @@ public class DatabaseManager {
             rs = ps.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id");
-                String name = rs.getString("name");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String role = rs.getString("role");
@@ -130,20 +121,23 @@ public class DatabaseManager {
                     case "SalesEmp":
                         SalesEmp salesEmp = new SalesEmp();
                         salesEmp.ID = id;
-                        //salesEmp.setId(id);
-                        //salesEmp.setName(name);
                         salesEmp.setUsername(username);
                         salesEmp.setPassword(password);
-
                         employees.add(salesEmp);
                         break;
                     case "InventoryEmp":
                         InventoryEmp inventoryEmp = new InventoryEmp();
-                        //inventoryEmp.setId(id);
-                        //inventoryEmp.setName(name);
+                        inventoryEmp.ID = id;
                         inventoryEmp.setUsername(username);
                         inventoryEmp.setPassword(password);
                         employees.add(inventoryEmp);
+                        break;
+                    case "MarketingEmp":
+                        /*MarketingEmp marketingEmp = new MarketingEmp();
+                        marketingEmp.setId(id);
+                        marketingEmp.setName(name);
+                        marketingEmp.setUsername(username);
+                        marketingEmp.setPassword(password);*/
                         break;
                 }
             }
@@ -159,17 +153,35 @@ public class DatabaseManager {
         return employees;
     }
 
-    public void setEmployees(ArrayList<Object> employees){
+    public void setEmployees(ArrayList<Employee> employees){
         Connection conn = null;
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Employee (name, username, password, role) VALUES (?, ?, ?, ?);");
-            for (Object employee : employees) {
-                ps.setString(1, (String) employee);
-                ps.setString(2, (String) employee);
-                ps.setString(3, (String) employee);
-                ps.setString(4, (String) employee);
+            ps = conn.prepareStatement("INSERT INTO Employee (username, password, role) VALUES (?, ?, ?, ?);");
+            for (Employee employee : employees) {
+                switch (employee.employeeType) {
+                    case ADMIN:
+                        ps.setString(1, employee.getUsername());
+                        ps.setString(2, employee.getPassword());
+                        ps.setString(3, "Admin");
+                        break;
+                    case SALES_EMPLOYEE:
+                        ps.setString(1, employee.getUsername());
+                        ps.setString(2, employee.getPassword());
+                        ps.setString(3, "SalesEmp");
+                        break;
+                    case INVENTORY_EMPLOYEE:
+                        ps.setString(1, employee.getUsername());
+                        ps.setString(2, employee.getPassword());
+                        ps.setString(3, "InventoryEmp");
+                        break;
+                    case MARKETING_EMPLOYEE:
+                        ps.setString(1, employee.getUsername());
+                        ps.setString(2, employee.getPassword());
+                        ps.setString(3, "MarketingEmp");
+                        break;
+                }
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -200,8 +212,9 @@ public class DatabaseManager {
                 int price = rs.getInt("price");
                 String description = rs.getString("decs");
                 int quantity = rs.getInt("quantity");
-                Date expirationDate = rs.getDate("expiration_date");
-                Product product = new Product(price, name, expirationDate, description, quantity);
+                Date expirationDate = new Date(rs.getString("expiration_date"));
+                Product product = new Product(price, name, expirationDate.toString(), description, quantity);
+                product.setProductId(id);
                 products.add(product);
             }
         } catch (SQLException ex) {
@@ -234,7 +247,7 @@ public class DatabaseManager {
             for (Product product : products) {
                 ps.setInt(1, product.getProductId());
                 ps.setInt(2, product.getQuantity());
-                ps.setDate(3, new java.sql.Date(product.getExpDate().getTime()));
+                ps.setString(3, product.getExpDate());
                 ps.executeUpdate();
             }
 
