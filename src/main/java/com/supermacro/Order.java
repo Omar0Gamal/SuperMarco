@@ -3,8 +3,8 @@ package com.supermacro;
 public class Order {
     public static int idCounter=1;
     private int id;
-    private Product [] items;
-    private int [] quantity;
+    private Product [] items;  //array for the items in the order
+    private int [] quantity;  //array for the quantity of each item
 
     public Order(){}
 

@@ -11,9 +11,10 @@ public class Product {
     private String expDate;
     private String description;
     private int quantity;
+    private double discount;
 
 
-    public Product (int price,String name,String expDate,String description,int quantity) {
+    public Product (double price,String name,String expDate,String description,int quantity,double discount) {
         this.price = price;
         this.total = price - discount;
         this.name = name;
@@ -22,13 +23,14 @@ public class Product {
         this.expDate = expDate;
         this.description = description;
         this.quantity = quantity;
+        this.discount = discount;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -70,5 +72,18 @@ public class Product {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+        this.total = price- discount;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public double getTotal(){
+        return total;
     }
 }

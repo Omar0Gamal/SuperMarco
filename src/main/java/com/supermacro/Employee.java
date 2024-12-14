@@ -1,9 +1,14 @@
 package com.supermacro;
 
-public class Employee extends User{
+import java.util.ArrayList;
+
+public abstract class Employee extends User{
     int ID;
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
+    public static ArrayList<Employee> employees = new ArrayList<>();
+    public  void setID(int id){
+        this.ID=id;
+    }
+    public int getID(){
+        return ID;
     }
 }

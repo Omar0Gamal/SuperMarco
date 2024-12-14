@@ -1,16 +1,22 @@
 package com.supermacro;
 import java.util.ArrayList;
 
-import static com.supermacro.empType.SALES_EMPLOYEE;
+
 
 public class SalesEmp extends Employee{
 
     public static ArrayList<Order> orders = new ArrayList<>();
 
     public SalesEmp(){
-        employeeType=SALES_EMPLOYEE;
+        employeeType=empType.SALES_EMPLOYEE;
     }
 
+    public SalesEmp(String username, String password, int ID){
+        this.username="SAL_"+username;
+        this.password=password;
+        this.ID=ID;
+        employeeType=empType.SALES_EMPLOYEE;
+    }
 
 
     public static Product searchProduct(int id){

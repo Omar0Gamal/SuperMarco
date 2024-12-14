@@ -20,3 +20,16 @@ invtest listed products.
 invtest deleted a product.
 invtest listed products.
 invtest added a product.
+invtestd failed to log in.
+invtest logged in.
+invtest listed products.
+invtest added a product.
+invtest listed products.
+invtest searched for product.
+invtest listed products.
+invtest logged in.
+invtest listed products.
+invtest logged out.
+invtest failed to log in.
+invtest logged in.
+invtest logged out.
