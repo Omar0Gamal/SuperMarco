@@ -44,9 +44,9 @@ public class InventoryEmp extends Employee{
 public static ArrayList<Product> listProduct(){
         return inventory;
 }
-public ArrayList<Product> productProblems(){
+/*public ArrayList<Product> productProblems(){
         ArrayList<Product>
-    }
+    }*/
 
 
 

@@ -1,19 +1,20 @@
 package com.supermacro;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 import static com.supermacro.empType.NONE;
-import static com.supermacro.empType.ADMIN;
 
 
 public class Main {
 
     //logging function
-    static empType logIN(Admin admin, String username, String password)
+    static User logIN(Admin admin, String username, String password)
     {
         if(username.equalsIgnoreCase(admin.getUsername()))
         {
             if(password.equalsIgnoreCase(admin.getPassword()))
-                return ADMIN;
+                return Admin.admin;
         }
 
 
@@ -22,10 +23,10 @@ public class Main {
             if(username.equalsIgnoreCase(a1.getUsername()))
             {
                 if(password.equalsIgnoreCase(a1.getPassword()))
-                    return a1.employeeType;
+                    return a1;
             }
         }
-        return NONE;
+        return null;
     }
     //-----------------------------------------------------------------------------------------
 
@@ -75,6 +76,8 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         DatabaseManager db = new DatabaseManager();
+        InventoryEmp.inventory = db.getProducts();
+        User.users = (ArrayList<User>) db.getEmployees().stream().map(e -> (User) e).collect(Collectors.toList());
         Admin admin = new Admin();
         int option;
 
@@ -83,12 +86,15 @@ public class Main {
         //receiving the username and password
         System.out.print("Enter username: ");
         String givenUsername = input.nextLine();
-        System.out.println("Enter password: ");
+        System.out.print("Enter password: ");
         String givenPassword = input.nextLine();
 
 
         //Logging in
-        empType employeeType = logIN(admin, givenUsername, givenPassword);
+        User user = logIN(admin, givenUsername, givenPassword);
+        empType employeeType = user == null ? NONE : user.employeeType;
+        if(employeeType != NONE) LogManager.log(user.getUsername(), "logged in", "");
+        else LogManager.log(givenUsername, "failed to log in", "");
 
 
         //If credentials are incorrect
@@ -99,11 +105,13 @@ public class Main {
             System.out.print("Enter username: ");
             givenUsername = input.nextLine();
 
-            System.out.println("Enter password: ");
+            System.out.print("Enter password: ");
             givenPassword = input.nextLine();
 
-            employeeType = logIN(admin, givenUsername, givenPassword);
-
+            user = logIN(admin, givenUsername, givenPassword);
+            employeeType = user == null ? NONE : user.employeeType;
+            if(employeeType != NONE) LogManager.log(user.getUsername(), "logged in", "");
+            else LogManager.log(givenUsername, "failed to log in", "");
         }
 
         //menus
@@ -115,12 +123,13 @@ public class Main {
                 while(true)
                 {
                     displaySalesEmpMenu();
+                    System.out.print("Enter your choice: ");
                     option = input.nextInt();
+                    input.skip("\\n");
 
                     switch(option)
                     {
                         case 1: //search product
-
                             System.out.print("Enter product ID: ");
                             int givenID=input.nextInt();
 
@@ -133,6 +142,7 @@ public class Main {
                                     "Expiration Date: "+productFound.getExpDate()+"\n"+
                                     "Description: "+productFound.getDescription()+"\n"+
                                     "Quantity: "+productFound.getQuantity());
+                            LogManager.log(user.getUsername(), "searched for product with ID: " + givenID, "");
                             break;
 
                         case 2: //list products
@@ -143,6 +153,7 @@ public class Main {
                                         " ID: "+product.getProductId()+
                                         " Price: "+product.getPrice());
                             }
+                            LogManager.log(user.getUsername(), "listed products", "");
                             break;
 
                         case 3: //make order
@@ -169,31 +180,32 @@ public class Main {
                             }
 
                             SalesEmp.makeOrder(items,quantity);
+                            LogManager.log(user.getUsername(), "made an order", "");
                             break;
 
                         case 4: //cancel order
-
                             System.out.print("Enter order ID: ");
                             int givenID2=input.nextInt();
                             SalesEmp.cancelOrder(givenID2);
+                            LogManager.log(user.getUsername(), "canceled an order", "");
                             break;
-
                         case 5:
+                            LogManager.log(user.getUsername(), "logged out", "");
                             System.exit(0);
-
                         default:
                             System.out.print("Invalid Operation.");
                     }
                 }
 
 
-
-            //If the person logging is an admin
+                //If the person logging is an admin
             case ADMIN:
                 while(true)
                 {
                     displayAdminMenu();
+                    System.out.print("Enter your choice: ");
                     option = input.nextInt();
+                    input.skip("\\n");
 
                     switch(option)
                     {
@@ -212,6 +224,7 @@ public class Main {
                         case 7:
                             break;
                         case 8:
+                            LogManager.log(user.getUsername(), "logged out", "");
                             System.exit(0);
                         default:
                             System.out.print("Invalid Operation.");
@@ -224,7 +237,9 @@ public class Main {
                 while(true)
                 {
                     displayInventoryManagementEmpMenu();
+                    System.out.print("Enter your choice: ");
                     option = input.nextInt();
+                    input.skip("\\n");
 
                     switch(option)
                     {
@@ -252,7 +267,7 @@ public class Main {
 
                             //adding product
                             InventoryEmp.inventory.add(new Product(price, name, expDate, description, quantity));
-
+                            LogManager.log(user.getUsername(), "added a product", "");
                             break;
 
                         case 2: //delete product
@@ -267,6 +282,7 @@ public class Main {
                             }
 
                             InventoryEmp.deleteProduct(product);
+                            LogManager.log(user.getUsername(), "deleted a product", "");
                             break;
 
                         case 3: //update product
@@ -282,6 +298,7 @@ public class Main {
                             }
                             */
 
+                            LogManager.log(user.getUsername(), "updated a product", "");
                             break;
 
                         case 4: //list products
@@ -292,6 +309,7 @@ public class Main {
                                         " ID: "+product3.getProductId()+
                                         " Price: "+product3.getPrice());
                             }
+                            LogManager.log(user.getUsername(), "listed products", "");
                             break;
 
                         case 5: //search product
@@ -306,21 +324,26 @@ public class Main {
                                     "Expiration Date: "+productFound.getExpDate()+"\n"+
                                     "Description: "+productFound.getDescription()+"\n"+
                                     "Quantity: "+productFound.getQuantity());
+                            LogManager.log(user.getUsername(), "searched for product", "");
                             break;
 
                         case 6:
+                            db.setProducts(InventoryEmp.inventory);
+                            LogManager.log(user.getUsername(), "logged out", "");
                             System.exit(0);
                         default:
                             System.out.print("Invalid Operation.");
                     }
                 }
 
-            //If the person logging is a marketing employee
+                //If the person logging is a marketing employee
             case MARKETING_EMPLOYEE:
                 while (true)
                 {
                     displayMarketingEmpMenu();
+                    System.out.print("Enter your choice: ");
                     option = input.nextInt();
+                    input.skip("\\n");
 
                     switch(option)
                     {
@@ -329,17 +352,12 @@ public class Main {
                         case 2:
                             break;
                         case 3:
+                            LogManager.log(user.getUsername(), "logged out", "");
                             System.exit(0);
                         default:
                             System.out.print("Invalid Operation.");
                     }
                 }
-
-
-
         }
-
-
-
     }
 }
