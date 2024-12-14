@@ -111,13 +111,6 @@ public class DatabaseManager {
                 String password = rs.getString("password");
                 String role = rs.getString("role");
                 switch (role) {
-                    case "Admin":
-                        /*Admin admin = new Admin();
-                        admin.setId(id);
-                        admin.setName(name);
-                        admin.setUsername(username);
-                        admin.setPassword(password);*/
-                        break;
                     case "SalesEmp":
                         SalesEmp salesEmp = new SalesEmp();
                         salesEmp.ID = id;
