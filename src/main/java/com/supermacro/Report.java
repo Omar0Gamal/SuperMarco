@@ -8,7 +8,7 @@ public class Report {
     private MarketingEmp author;
     private static int count = 1;
 
-    public Report(int reportId, String title, String description, MarketingEmp author) {
+    public Report(String title, String description, MarketingEmp author) {
         this.reportId = count;
         count++;
         this.title = title;

@@ -1,8 +1,10 @@
 package com.supermacro;
 
+import java.util.ArrayList;
+
 public class Admin extends User{
 
-    public static Admin admin = new Admin();
+    public static Admin mainAdmin = new Admin();
 
     public Admin (){
         this.username = "Admin";

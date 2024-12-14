@@ -3,8 +3,9 @@ package com.supermacro;
 
 
 public class Product {
-    private int price;
-    private static int count = 1;
+    private double price;
+    private double total;  // price after discount
+    public static int count = 1;
     private String name;
     private int productId;
     private String expDate;
@@ -14,6 +15,7 @@ public class Product {
 
     public Product (int price,String name,String expDate,String description,int quantity) {
         this.price = price;
+        this.total = price - discount;
         this.name = name;
         this.productId = count;
         count++;

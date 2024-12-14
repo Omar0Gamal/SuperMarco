@@ -22,6 +22,7 @@ public class DatabaseManager {
                 id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
                 price REAL NOT NULL,
+                discount REAL NOT NULL,
                 decs TEXT NOT NULL
             );
             CREATE TABLE IF NOT EXISTS Inventory (
@@ -43,18 +44,17 @@ public class DatabaseManager {
             try {
                 dataFolder.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         try {
             if(connection!=null && !connection.isClosed()){
                 return connection;
             }
-            Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + dataFolder);
             return connection;
-        } catch (SQLException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         return null;
     }
@@ -65,30 +65,6 @@ public class DatabaseManager {
             Statement s = connection.createStatement();
             s.executeUpdate(CREATE_TABLE_STATEMENT);
             s.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void close() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void reset() {
-        try {
-            connection = getConnection();
-            Statement s = connection.createStatement();
-            s.executeUpdate("DROP TABLE IF EXISTS Employee;");
-            s.executeUpdate("DROP TABLE IF EXISTS Product;");
-            s.executeUpdate("DROP TABLE IF EXISTS Inventory;");
-            s.close();
-            load();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -112,25 +88,16 @@ public class DatabaseManager {
                 String role = rs.getString("role");
                 switch (role) {
                     case "SalesEmp":
-                        SalesEmp salesEmp = new SalesEmp();
-                        salesEmp.ID = id;
-                        salesEmp.setUsername(username);
-                        salesEmp.setPassword(password);
+                        SalesEmp salesEmp = new SalesEmp(username,password,id);
                         employees.add(salesEmp);
                         break;
                     case "InventoryEmp":
-                        InventoryEmp inventoryEmp = new InventoryEmp();
-                        inventoryEmp.ID = id;
-                        inventoryEmp.setUsername(username);
-                        inventoryEmp.setPassword(password);
+                        InventoryEmp inventoryEmp = new InventoryEmp(username,password,id);
                         employees.add(inventoryEmp);
                         break;
                     case "MarketingEmp":
-                        /*MarketingEmp marketingEmp = new MarketingEmp();
-                        marketingEmp.setId(id);
-                        marketingEmp.setName(name);
-                        marketingEmp.setUsername(username);
-                        marketingEmp.setPassword(password);*/
+                        MarketingEmp marketingEmp = new MarketingEmp(username,password,id);
+                        employees.add(marketingEmp);
                         break;
                 }
             }
@@ -151,28 +118,26 @@ public class DatabaseManager {
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Employee (username, password, role) VALUES (?, ?, ?, ?);");
+            ps = conn.prepareStatement("INSERT INTO Employee (id, username, password, role) VALUES (?, ?, ?, ?);");
             for (Employee employee : employees) {
                 switch (employee.employeeType) {
-                    case ADMIN:
-                        ps.setString(1, employee.getUsername());
-                        ps.setString(2, employee.getPassword());
-                        ps.setString(3, "Admin");
-                        break;
                     case SALES_EMPLOYEE:
-                        ps.setString(1, employee.getUsername());
-                        ps.setString(2, employee.getPassword());
-                        ps.setString(3, "SalesEmp");
+                        ps.setInt(1,employee.getID());
+                        ps.setString(2, employee.getUsername());
+                        ps.setString(3, employee.getPassword());
+                        ps.setString(4, "SalesEmp");
                         break;
                     case INVENTORY_EMPLOYEE:
-                        ps.setString(1, employee.getUsername());
-                        ps.setString(2, employee.getPassword());
-                        ps.setString(3, "InventoryEmp");
+                        ps.setInt(1,employee.getID());
+                        ps.setString(2, employee.getUsername());
+                        ps.setString(3, employee.getPassword());
+                        ps.setString(4, "InventoryEmp");
                         break;
                     case MARKETING_EMPLOYEE:
-                        ps.setString(1, employee.getUsername());
-                        ps.setString(2, employee.getPassword());
-                        ps.setString(3, "MarketingEmp");
+                        ps.setInt(1,employee.getID());
+                        ps.setString(2, employee.getUsername());
+                        ps.setString(3, employee.getPassword());
+                        ps.setString(4, "MarketingEmp");
                         break;
                 }
                 ps.executeUpdate();
@@ -196,17 +161,18 @@ public class DatabaseManager {
         try {
             conn = getConnection();
 
-            ps = conn.prepareStatement("SELECT id, name, price, decs, quantity, expiration_date from Product p join Inventory i on p.id = i.product_id");
+            ps = conn.prepareStatement("SELECT id, name, price, discount, decs, quantity, expiration_date from Product p join Inventory i on p.id = i.product_id");
 
             rs = ps.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                int price = rs.getInt("price");
+                double price = rs.getDouble("price");
+                double discount = rs.getDouble("discount");
                 String description = rs.getString("decs");
                 int quantity = rs.getInt("quantity");
                 String expirationDate = rs.getString("expiration_date");
-                Product product = new Product(price, name, expirationDate, description, quantity);
+                Product product = new Product(price, name, expirationDate, description, quantity,discount);
                 product.setProductId(id);
                 products.add(product);
             }
@@ -227,12 +193,13 @@ public class DatabaseManager {
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Product (id,name, price, decs) VALUES (?,?, ?, ?);");
+            ps = conn.prepareStatement("INSERT INTO Product (id,name, price, discount, decs) VALUES (?, ?, ?, ?, ?);");
             for (Product product : products) {
                 ps.setInt(1, product.getProductId());
                 ps.setString(2, product.getName());
-                ps.setInt(3, product.getPrice());
-                ps.setString(4, product.getDescription());
+                ps.setDouble(3, product.getPrice());
+                ps.setDouble(4, product.getDiscount());
+                ps.setString(5, product.getDescription());
                 ps.executeUpdate();
             }
 
@@ -253,5 +220,44 @@ public class DatabaseManager {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public int getLastUsedEmpId(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int max = 1;
+        try{
+            conn = getConnection();
+
+            ps = conn.prepareStatement("SELECT MAX(id) as 'max' from Employee e");
+
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                max = rs.getInt("max");
+            }
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return max;
+    }
+    public int getLastUsedProductID(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int max = 1;
+        try{
+            conn = getConnection();
+
+            ps = conn.prepareStatement("SELECT MAX(id) as 'max' from Product p");
+
+            rs = ps.executeQuery();
+            while(rs.next()) {
+                max = rs.getInt("max");
+            }
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return max;
     }
 }

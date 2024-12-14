@@ -1,1 +1,22 @@
-
+[2024-12-14 04:07:00]:SalesTest failed to log in .
+[2024-12-14 04:07:45]:SalesTest failed to log in .
+[2024-12-14 04:08:06]:InvTest failed to log in .
+[2024-12-14 04:08:13]:InvTest logged in .
+[2024-12-14 04:08:22]:InvTest listed products .
+[2024-12-14 15:29:40]:InvTest logged in .
+[2024-12-14 15:30:04]:InvTest added a product .
+[2024-12-14 15:30:10]:InvTest listed products .
+[2024-12-14 15:30:16]:InvTest logged out .
+[2024-12-14 17:02:47]:SalesTest failed to log in .
+[2024-12-14 17:03:51]:SalesTest failed to log in .
+[2024-12-14 17:04:55]:SAl_SalesTest logged in .inv_invtest failed to log in.
+invtest logged in.
+invtest listed products.
+invtest added a product.
+invtest listed products.
+invtest logged in.
+invtest added a product.
+invtest listed products.
+invtest deleted a product.
+invtest listed products.
+invtest added a product.
