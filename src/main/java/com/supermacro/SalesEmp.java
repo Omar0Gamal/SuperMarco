@@ -7,45 +7,55 @@ public class SalesEmp extends Employee{
 
     public static ArrayList<Order> orders = new ArrayList<>();
 
-    public SalesEmp(){}
+    public SalesEmp(){
+        employeeType=SALES_EMPLOYEE;
+    }
 
-    private Product searchProduct(int id){
+
+
+    public static Product searchProduct(int id){
         for(Product p : InventoryEmp.inventory){
             if(id== p.getProductId())
                 return p;
         }
         return null;
     }
-    /*public void searchProduct(int id){
-        System.out.println("name: "+ searchForProduct(id).getName());
-        System.out.println("id: "+id);
-        System.out.println("price: "+searchForProduct(id).getPrice());
-        System.out.println("expiration date: "+searchForProduct(id).getExpDate());
-        System.out.println("description: "+searchForProduct(id).getDescription());
-        System.out.println("quantity: "+searchForProduct(id).getQuantity());
-    }*/
-    //public listProducts(){}
 
-    public void makeOrder(Product []products,int []quantity){
-        Order o=new Order();
-        orders.add(o);
-        System.out.println("order made :)");
-        System.out.println("order id: "+o.getId());
-        for(int i=0;i<o.getProducts().length;i++){
-            System.out.println("product no"+(i+1)+": "+products[i]+quantity[i]);
-        }
-        System.out.println("Total price= "+o.calculateTotal());
+
+    public static ArrayList<Product> listProducts(){
+        return InventoryEmp.inventory;
     }
-    public boolean cancelOrder(int id){
+
+
+
+    public static void makeOrder(Product []items,int []quantity) {
+        if (items.length == quantity.length){
+            Order o = new Order(items, quantity);
+            orders.add(o);
+            System.out.println("order made :)");
+            System.out.println("order id: " + o.getId());
+            for (int i = 0; i < o.getItems().length; i++) {
+                System.out.println("product no" + (i + 1) + ": " + items[i] + quantity[i]);
+            }
+            System.out.println("Total price= " + o.calculateTotal());
+        }
+    }
+
+
+    public static void cancelOrder(int id){
         for(Order o:orders){
             if(id==o.getId()) {
                 orders.remove(o);
                 System.out.println("order canceled");
-                return true;
+                return;
             }
         }
         System.out.println("order not found");
-        return false;
     }
+
+    public void setUsername(String username){
+        this.username="SAL_"+username;
+    }
+
 
 }

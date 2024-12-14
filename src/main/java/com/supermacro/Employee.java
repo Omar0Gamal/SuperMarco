@@ -1,14 +1,9 @@
 package com.supermacro;
 
 public class Employee extends User{
-
     int ID;
-    String name;
-
     @Override
-    public String getUsername()
-    {
-        return this.;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
 }

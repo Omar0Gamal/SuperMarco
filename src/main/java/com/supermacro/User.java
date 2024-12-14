@@ -2,17 +2,15 @@ package com.supermacro;
 
 import java.util.ArrayList;
 
-public class User {
+public abstract class User {
 
     public empType employeeType;
-    private String username;
-    private  String password;
+    protected String username;
+    protected String password;
     public static ArrayList <User> users = new ArrayList<>();
 
 
-    public void setUsername(String username){
-        this.username=username;
-    }
+    public abstract void setUsername(String username);
 
     public String getUsername(){
         return username;

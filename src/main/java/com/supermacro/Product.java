@@ -1,19 +1,22 @@
 package com.supermacro;
 
-import java.util.Date;
+
 
 public class Product {
     private int price;
+    private static int count = 1;
     private String name;
     private int productId;
-    private Date expDate;
+    private String expDate;
     private String description;
     private int quantity;
 
-    public Product (int price,String name,int productId,Date expDate,String description,int quantity) {
+
+    public Product (int price,String name,String expDate,String description,int quantity) {
         this.price = price;
         this.name = name;
-        this.productId = productId;
+        this.productId = count;
+        count++;
         this.expDate = expDate;
         this.description = description;
         this.quantity = quantity;
@@ -43,11 +46,11 @@ public class Product {
         return productId;
     }
 
-    public void setExpDate(Date expDate) {
+    public void setExpDate(String expDate) {
         this.expDate = expDate;
     }
 
-    public Date getExpDate() {
+    public String getExpDate() {
         return expDate;
     }
 
