@@ -205,8 +205,8 @@ public class DatabaseManager {
                 int price = rs.getInt("price");
                 String description = rs.getString("decs");
                 int quantity = rs.getInt("quantity");
-                Date expirationDate = new Date(rs.getString("expiration_date"));
-                Product product = new Product(price, name, expirationDate.toString(), description, quantity);
+                String expirationDate = rs.getString("expiration_date");
+                Product product = new Product(price, name, expirationDate, description, quantity);
                 product.setProductId(id);
                 products.add(product);
             }
