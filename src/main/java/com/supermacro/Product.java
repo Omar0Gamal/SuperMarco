@@ -76,7 +76,7 @@ public class Product {
 
     public void setDiscount(double discount) {
         this.discount = discount;
-        this.total = price- discount;
+        this.total = price - discount;
     }
 
     public double getDiscount() {

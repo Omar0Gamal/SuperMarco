@@ -3,9 +3,7 @@ package com.supermacro;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DatabaseManager {
 
@@ -39,10 +37,13 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() {
-        File dataFolder = new File("./", DB_FILE);
-        if (!dataFolder.exists()) {
+        File db = new File("./", DB_FILE);
+        if (!db.exists()) {
             try {
-                dataFolder.createNewFile();
+                boolean created = db.createNewFile();
+                if (created) {
+                    LogManager.log("DatabaseManager", "Database file created.");
+                }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -51,7 +52,7 @@ public class DatabaseManager {
             if(connection!=null && !connection.isClosed()){
                 return connection;
             }
-            connection = DriverManager.getConnection("jdbc:sqlite:" + dataFolder);
+            connection = DriverManager.getConnection("jdbc:sqlite:" + db);
             return connection;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
@@ -66,7 +67,7 @@ public class DatabaseManager {
             s.executeUpdate(CREATE_TABLE_STATEMENT);
             s.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -102,12 +103,12 @@ public class DatabaseManager {
                 }
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (ps != null) ps.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
         }
         return employees;
@@ -118,6 +119,8 @@ public class DatabaseManager {
         PreparedStatement ps = null;
         try {
             conn = getConnection();
+            Statement s = conn.createStatement();
+            s.executeUpdate("DELETE FROM Employee;");
             ps = conn.prepareStatement("INSERT INTO Employee (id, username, password, role) VALUES (?, ?, ?, ?);");
             for (Employee employee : employees) {
                 switch (employee.employeeType) {
@@ -143,12 +146,12 @@ public class DatabaseManager {
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (ps != null) ps.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
         }
     }
@@ -177,12 +180,12 @@ public class DatabaseManager {
                 products.add(product);
             }
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (ps != null) ps.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
         }
         return products;
@@ -193,7 +196,9 @@ public class DatabaseManager {
         PreparedStatement ps = null;
         try {
             conn = getConnection();
-            ps = conn.prepareStatement("INSERT INTO Product (id,name, price, discount, decs) VALUES (?, ?, ?, ?, ?);");
+            Statement s = conn.createStatement();
+            s.executeUpdate("DELETE FROM Product; DELETE FROM Inventory;");
+            ps = conn.prepareStatement("INSERT INTO Product (id, name, price, discount, decs) VALUES (?, ?, ?, ?, ?);");
             for (Product product : products) {
                 ps.setInt(1, product.getProductId());
                 ps.setString(2, product.getName());
@@ -212,12 +217,12 @@ public class DatabaseManager {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 if (ps != null) ps.close();
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
         }
     }
@@ -237,7 +242,7 @@ public class DatabaseManager {
                 max = rs.getInt("max");
             }
         }catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
         return max;
     }
@@ -256,7 +261,7 @@ public class DatabaseManager {
                 max = rs.getInt("max");
             }
         }catch (SQLException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
         return max;
     }

@@ -2,7 +2,7 @@ package com.supermacro;
 
 import java.util.ArrayList;
 
-public class Admin extends User{
+public class Admin extends User {
 
     public static Admin mainAdmin = new Admin();
 
@@ -17,12 +17,13 @@ public class Admin extends User{
         this.username = username;
     }
     public void setpassword(String password){this.password=password;}
-    public static int idCounter=1;
+    public static int idCounter = 1;
 
 
 
     public static void addMarketing(String username,String password){  //add MarketingEmployee
         MarketingEmp mar=new MarketingEmp(username,password,idCounter);
+        mar.setUsername(username);
         setUniqueId(mar);
         Employee.employees.add(mar);
 
@@ -31,6 +32,7 @@ public class Admin extends User{
     public static void addInventory(String username,String password){  //add InventoryEmployee
 
         InventoryEmp inv=new InventoryEmp(username,password,idCounter);
+        inv.setUsername(username);
         setUniqueId(inv);
         Employee.employees.add(inv);
 
@@ -38,6 +40,7 @@ public class Admin extends User{
 
     public static void addSales(String username,String password){  //add SalesEmployee
         SalesEmp sale=new SalesEmp(username,password,idCounter);
+        sale.setUsername(username);
         setUniqueId(sale);
         Employee.employees.add(sale);
     }
@@ -62,7 +65,7 @@ public class Admin extends User{
     }
 
 
-    public static User searchEmp(String username){   //search for employee
+    public static Employee searchEmp(String username){   //search for employee
         for (int i=0;i<Employee.employees.size();i++){
             if(username==Employee.employees.get(i).username){
                 return Employee.employees.get(i);
@@ -72,26 +75,23 @@ public class Admin extends User{
     }
 
 
-    public static void updateName(String username ,String newusername){
-        for (int i=0;i<Employee.employees.size();i++){
-            User u=Employee.employees.get(i);
-            if(u.username==username){
-                if(newusername!=null){
-                    u.username=newusername;
-                }
-            }
+    public static void updateName(String username ,String newusername) {
+        Employee e = searchEmp(username);
+        if(e == null) return;
+        if(newusername!=null){
+            e.username=newusername;
         }
     }
 
-    public static void updatePassword(String password ,String newpassword){
+
+    public static void updatePassword(String username ,String newpassword){
         for (int i=0;i<Employee.employees.size();i++){
-            User u=Employee.employees.get(i);
-            if(u.password==password){
+            Employee e=Employee.employees.get(i);
+            if(e.username==username){
                 if(newpassword!=null){
-                    u.password=newpassword;
+                    e.password=newpassword;
                 }
             }
         }
     }
-
 }

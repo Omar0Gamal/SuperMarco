@@ -50,11 +50,16 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" +
-                "reportId=" + reportId +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", author=" + author +
-                '}';}
+        return """
+                Report {
+                    reportId = %reportId%
+                    title = '%title%'
+                    description = '%description%'
+                    author = '%author%'
+                }""".replace("%reportId%", String.valueOf(reportId))
+                .replace("%title%", title)
+                .replace("%description%", description)
+                .replace("%author%", author.getUsername());
+    }
 
 }

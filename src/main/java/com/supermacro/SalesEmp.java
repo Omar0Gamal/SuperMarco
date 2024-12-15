@@ -7,12 +7,8 @@ public class SalesEmp extends Employee{
 
     public static ArrayList<Order> orders = new ArrayList<>();
 
-    public SalesEmp(){
-        employeeType=empType.SALES_EMPLOYEE;
-    }
-
     public SalesEmp(String username, String password, int ID){
-        this.username="SAL_"+username;
+        this.username=username;
         this.password=password;
         this.ID=ID;
         employeeType=empType.SALES_EMPLOYEE;
@@ -43,7 +39,7 @@ public class SalesEmp extends Employee{
             for (int i = 0; i < o.getItems().length; i++) {
                 System.out.println("product no" + (i + 1) + ": " + items[i] + quantity[i]);
             }
-            System.out.println("Total price= " + o.calculateTotal());
+            System.out.println("Total price = " + o.calculateTotal());
         }
     }
 

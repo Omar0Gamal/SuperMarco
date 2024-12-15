@@ -1,7 +1,7 @@
 package com.supermacro;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 
 public class LogManager {
     public static final String LOG_FILE = "log.txt";
@@ -16,13 +16,12 @@ public class LogManager {
                 file.createNewFile();
             }
             // write log to file
-            FileOutputStream fos = new FileOutputStream(file, true);
-            fos.write(log.getBytes());
-            fos.write("\n".getBytes());
-            fos.close();
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(log);
+            fw.write("\n");
+            fw.close();
         }catch (Exception e){
             System.out.println(e.getMessage());
-            //e.printStackTrace();
         }
     }
 }

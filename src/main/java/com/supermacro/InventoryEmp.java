@@ -9,15 +9,15 @@ public class InventoryEmp extends Employee{
 
     public InventoryEmp(String username, String password, int ID)
     {
-        this.username=username;
-        this.password=password;
-        this.ID=ID;
+        this.username = username;
+        this.password = password;
+        this.ID = ID;
         employeeType = INVENTORY_EMPLOYEE;
     }
 
     public static ArrayList<Product> inventory = new ArrayList<>();
     public void setUsername(String username){
-        this.username="INV_"+username;
+        this.username = "INV_" + username;
     }
     public static void addProduct(Product p){
         if(!inventory.contains(p))
@@ -26,24 +26,6 @@ public class InventoryEmp extends Employee{
     public static void deleteProduct(Product p){
             inventory.remove(p);
     }
-
-//    public void updateProduct(int choice){
-//        for(int i=0; i<inventory.size();i++){
-//            if(inventory.get(i).getProductId()==p.getProductId())
-//
-//        }
-//        switch (choice){
-//            case 1:
-//
-//                        inventory.set(i,p).setPrice();
-//
-//        }
-
-//        for(int i=0;i< inventory.size();i++){
-//            if(inventory.get(i).getProductId()==p.getProductId())
-//                inventory.set(i,p);
-
-
 
     public static Product searchProduct(String name){
         for(int i=0; i< inventory.size(); i++) {
@@ -65,14 +47,13 @@ public class InventoryEmp extends Employee{
         return shortageProducts;
 
         }
+
+
     public static void updateProductPrice(double newPrice, Product product){
-
                 product.setPrice(newPrice);
-
         }
-
     public static void updateProductName( String newName, Product product){
-     product.setName(newName);
+        product.setName(newName);
     }
     public static void updateProductDescribtion(String newdesc, Product product) {
         product.setDescription(newdesc);

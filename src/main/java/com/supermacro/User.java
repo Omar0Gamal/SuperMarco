@@ -1,7 +1,5 @@
 package com.supermacro;
 
-import java.util.ArrayList;
-
 public abstract class User {
 
     public empType employeeType;
@@ -11,18 +9,14 @@ public abstract class User {
 
 
     public abstract  void setUsername(String username);
-
     public String getUsername(){
         return username;
     }
 
     public void setPassword(String password){
-        this.password=password;
+        this.password = password;
     }
-
     public String getPassword(){
         return password;
     }
-
-    // Ay Update
 }
