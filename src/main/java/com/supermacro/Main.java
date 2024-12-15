@@ -117,7 +117,8 @@ public class Main {
                 5- Search Product
                 6- Set Username
                 7- Set Password
-                8- Exit
+                8- Show reorder point products
+                9-Exit
                 """);
     }
     //------------------------------------------------------------------------------------------
@@ -516,10 +517,11 @@ public class Main {
 
                             ArrayList<Product> products=InventoryEmp.listProduct();
                             for(Product product3:products){
-                                System.out.println("Name: "+product3.getName()+
-                                        " ID: "+product3.getProductId()+
-                                        " Price before discount: "+product3.getPrice()+
-                                        "Discount: "+product3.getDiscount()  +
+                                System.out.println("Name: "+product3.getName()+"\n"+
+                                        " ID: "+product3.getProductId()+"\n"+
+                                        "Quantity: "+product3.getQuantity() +"\n"+
+                                        " Price before discount: "+product3.getPrice()+"\n"+
+                                        "Discount: "+product3.getDiscount()  +"\n"+
                                          "Price after discount: "+product3.getTotal());
                             }
                             LogManager.log(givenUsername, "listed products");
@@ -559,8 +561,22 @@ public class Main {
                             db.setEmployees(Employee.employees);
                             LogManager.log(givenUsername, "updated password");
                             break;
-
                         case 8:
+                            int reorderQuantity=getIntInput("Choose your reorder point quantity: ",input);
+                            ArrayList<Product> shortageProducts =InventoryEmp.reorderPoint(reorderQuantity);
+                            for(Product product4:shortageProducts){
+                                System.out.println( reorderQuantity+"\n"+
+                                        "Name: "+product4.getName()+"\n"+
+                                        " ID: "+product4.getProductId()+"\n"+
+                                        "Quantity: "+product4.getQuantity()+"\n"+
+                                        " Price before discount: "+product4.getPrice()+"\n"+
+                                        "Discount: "+product4.getDiscount() +"\n"+
+                                        "Price after discount: "+product4.getTotal());
+                            }
+                            LogManager.log(givenUsername, "Listed shortage products");
+                            break;
+
+                        case 9:
                             db.setProducts(InventoryEmp.inventory);
                             db.setEmployees(Employee.employees);
                             LogManager.log(givenUsername, "logged out");

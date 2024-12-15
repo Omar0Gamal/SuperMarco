@@ -38,7 +38,7 @@ public class InventoryEmp extends Employee{
         return inventory;
 }
 
-    public ArrayList<Product> reorderPoint(int reorderQuantity){
+    public static ArrayList<Product> reorderPoint(int reorderQuantity){
         ArrayList<Product> shortageProducts= new ArrayList<>();
         for(int i=0; i<inventory.size(); i++){
             if(inventory.get(i).getQuantity()<= reorderQuantity)
