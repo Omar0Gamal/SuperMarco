@@ -52,7 +52,7 @@ public class Admin extends User {
 
     public static void deleteEmp(String username){    //delete the employee
         for (int i=0;i<Employee.employees.size();i++){
-            if (Employee.employees.get(i).username==username){
+            if (Employee.employees.get(i).username.equalsIgnoreCase(username)){
                 User remove= Employee.employees.remove(i);
                 break;
             }
@@ -67,7 +67,7 @@ public class Admin extends User {
 
     public static Employee searchEmp(String username){   //search for employee
         for (int i=0;i<Employee.employees.size();i++){
-            if(username==Employee.employees.get(i).username){
+            if(username.equalsIgnoreCase(Employee.employees.get(i).username)){
                 return Employee.employees.get(i);
             }
         }
@@ -84,12 +84,12 @@ public class Admin extends User {
     }
 
 
-    public static void updatePassword(String username ,String newpassword){
+    public static void updatePassword(String username ,String newPassword){
         for (int i=0;i<Employee.employees.size();i++){
             Employee e=Employee.employees.get(i);
-            if(e.username==username){
-                if(newpassword!=null){
-                    e.password=newpassword;
+            if(e.username.equalsIgnoreCase(username)){
+                if(newPassword!=null){
+                    e.password=newPassword;
                 }
             }
         }
