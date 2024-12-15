@@ -515,10 +515,11 @@ public class Main {
 
                             ArrayList<Product> products=InventoryEmp.listProduct();
                             for(Product product3:products){
-                                System.out.println("Name: "+product3.getName()+
-                                        " ID: "+product3.getProductId()+
-                                        " Price before discount: "+product3.getPrice()+
-                                        "Discount: "+product3.getDiscount()  +
+                                System.out.println("Name: "+product3.getName()+"\n"+
+                                        " ID: "+product3.getProductId()+"\n"+
+                                        "Quantity: "+product3.getQuantity() +"\n"+
+                                        " Price before discount: "+product3.getPrice()+"\n"+
+                                        "Discount: "+product3.getDiscount()  +"\n"+
                                          "Price after discount: "+product3.getTotal());
                             }
                             LogManager.log(givenUsername, "listed products");
@@ -562,11 +563,12 @@ public class Main {
                             int reorderQuantity=getIntInput("Choose your reorder point quantity: ",input);
                             ArrayList<Product> shortageProducts =InventoryEmp.reorderPoint(reorderQuantity);
                             for(Product product4:shortageProducts){
-                                System.out.println("Products with quantity less than "+ reorderQuantity+
-                                        "Name: "+product4.getName()+
-                                        " ID: "+product4.getProductId()+
-                                        " Price before discount: "+product4.getPrice()+
-                                        "Discount: "+product4.getDiscount()  +
+                                System.out.println( reorderQuantity+"\n"+
+                                        "Name: "+product4.getName()+"\n"+
+                                        " ID: "+product4.getProductId()+"\n"+
+                                        "Quantity: "+product4.getQuantity()+"\n"+
+                                        " Price before discount: "+product4.getPrice()+"\n"+
+                                        "Discount: "+product4.getDiscount() +"\n"+
                                         "Price after discount: "+product4.getTotal());
                             }
                             LogManager.log(givenUsername, "Listed shortage products");

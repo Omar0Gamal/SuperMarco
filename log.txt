@@ -40,3 +40,50 @@ MAR_MarkTest logged out.
 MAR_MarkTest logged in.
 MAR_MarkTest made a report.
 MAR_MarkTest logged out.
+admin123 failed to log in.
+Admin logged in.
+Admin updated employee password.
+Admin listed employees.
+Admin logged out.
+INV-saed failed to log in.
+INV-saed failed to log in.
+INV-saed failed to log in.
+INV-saed failed to log in.
+INV_saed logged in.
+INV_saed Listed shortage products.
+INV_saed logged out.
+INV_saed logged in.
+INV_saed listed products.
+INV-saed failed to log in.
+INV_saed logged in.
+INV_saed listed products.
+INV_saed logged in.
+INV_saed added a product.
+INV_saed Listed shortage products.
+INV-saed failed to log in.
+inv_saed logged in.
+inv_saed listed products.
+inv_saed Listed shortage products.
+Admin logged in.
+Admin listed employees.
+Admin added an employee.
+Admin logged out.
+MAR-saad failed to log in.
+saad failed to log in.
+Admin logged in.
+Admin listed employees.
+Admin logged out.
+MAR_saad logged in.
+MAR_saad made a discount.
+MAR_saad made a report.
+MAR_saad updated password.
+MAR_saad logged out.
+MAR_saad logged in.
+MAR_saad logged out.
+INV_saed logged in.
+INV_saed listed products.
+MAR_saad logged in.
+MAR_saad made a discount.
+MAR_saad logged out.
+INV_saed logged in.
+INV_saed listed products.
