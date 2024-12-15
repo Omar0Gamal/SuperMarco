@@ -117,7 +117,8 @@ public class Main {
                 5- Search Product
                 6- Set Username
                 7- Set Password
-                8- Exit
+                8- Show reorder point products
+                9-Exit
                 """);
     }
     //------------------------------------------------------------------------------------------
@@ -557,8 +558,21 @@ public class Main {
                             db.setEmployees(Employee.employees);
                             LogManager.log(givenUsername, "updated password");
                             break;
-
                         case 8:
+                            int reorderQuantity=getIntInput("Choose your reorder point quantity: ",input);
+                            ArrayList<Product> shortageProducts =InventoryEmp.reorderPoint(reorderQuantity);
+                            for(Product product4:shortageProducts){
+                                System.out.println("Products with quantity less than "+ reorderQuantity+
+                                        "Name: "+product4.getName()+
+                                        " ID: "+product4.getProductId()+
+                                        " Price before discount: "+product4.getPrice()+
+                                        "Discount: "+product4.getDiscount()  +
+                                        "Price after discount: "+product4.getTotal());
+                            }
+                            LogManager.log(givenUsername, "Listed shortage products");
+                            break;
+
+                        case 9:
                             db.setProducts(InventoryEmp.inventory);
                             db.setEmployees(Employee.employees);
                             LogManager.log(givenUsername, "logged out");
