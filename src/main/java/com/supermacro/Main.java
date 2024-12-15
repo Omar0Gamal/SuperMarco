@@ -90,10 +90,7 @@ public class Main {
                            3- Update Employee
                            4- List Employees
                            5- Search Employee
-                           6- Set Employee Password
-                           7- Set Username
-                           8- Set Password
-                           9- Exit
+                           6- Exit
                            """);
     }
 
@@ -138,7 +135,6 @@ public class Main {
                 ~~~~~~~~~~~~~~~~~~~~~~
                 Welcome to SuperMarco!
                 ~~~~~~~~~~~~~~~~~~~~~~
-                
                 
                 """);
 
@@ -391,23 +387,23 @@ public class Main {
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated employee password");
                             break; */
 
-                        case 7: //updating username
+                        /*case 7: //updating username
 
                             String username = getStringInput("Enter new username: ",input);
                             user.setUsername(username);
                             db.setEmployees(Employee.employees);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated username");
-                            break;
+                            break;*/
 
-                        case 8: //updating password
+                        /*case 6: //updating password
 
                             String password = getStringInput("Enter new password: ",input);
                             user.setPassword(password);
                             db.setEmployees(Employee.employees);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated password");
-                            break;
+                            break;*/
 
-                        case 9:
+                        case 6:
                             db.setEmployees(Employee.employees);
                             LogManager.log(Admin.mainAdmin.getUsername(), "logged out");
                             System.exit(0);
@@ -568,9 +564,9 @@ public class Main {
                             for(Product product4:shortageProducts){
                                 System.out.println( reorderQuantity+"\n"+
                                         "Name: "+product4.getName()+"\n"+
-                                        " ID: "+product4.getProductId()+"\n"+
+                                        "ID: "+product4.getProductId()+"\n"+
                                         "Quantity: "+product4.getQuantity()+"\n"+
-                                        " Price before discount: "+product4.getPrice()+"\n"+
+                                        "Price before discount: "+product4.getPrice()+"\n"+
                                         "Discount: "+product4.getDiscount() +"\n"+
                                         "Price after discount: "+product4.getTotal());
                             }
