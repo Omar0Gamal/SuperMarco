@@ -40,3 +40,21 @@ MAR_MarkTest logged out.
 MAR_MarkTest logged in.
 MAR_MarkTest made a report.
 MAR_MarkTest logged out.
+SAL_SalesTest logged in.
+SAL_SalesTest made an order.
+SAL_SalesTest logged out.
+SAL_SalesTest logged in.
+SAL_SalesTest made an order.
+SAL_SalesTest logged out.
+admin logged in.
+Admin listed employees.
+Admin logged out.
+admin logged in.
+Admin listed employees.
+admin logged in.
+Admin listed employees.
+Admin added an employee.
+Admin logged out.
+admin logged in.
+Admin updated employee information.
+Admin logged out.

@@ -5,7 +5,7 @@ public class MarketingEmp extends Employee{
 
     public MarketingEmp(String username, String password, int ID)
     {
-        this.username = "MAR_"+username;
+        this.username = username;
         this.password = password;
         this.ID = ID;
         employeeType = empType.MARKETING_EMPLOYEE;

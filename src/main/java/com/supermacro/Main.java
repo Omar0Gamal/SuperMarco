@@ -235,7 +235,8 @@ public class Main {
                                 }
                             }
 
-                            SalesEmp.makeOrder(items,quantity);
+                            SalesEmp.makeOrder(items, quantity);
+                            db.setProducts(InventoryEmp.inventory);
                             LogManager.log(givenUsername, "made an order");
                             break;
 
@@ -291,7 +292,7 @@ public class Main {
                                     1- Sales Emp
                                     2- Inventory Emp
                                     3- Marketing Emp
-                                    """, input);
+                                    Enter your choice:\s""", input);
 
                             String newEmpUsername = getStringInput("Enter username: ", input);
                             String newEmpPassword = getStringInput("Enter Password: ", input);
@@ -333,7 +334,7 @@ public class Main {
                                     What do you want to update in the user?
                                     1- Username
                                     2- Password
-                                    """, input);
+                                    Enter your choice:\s""", input);
 
                             switch(choice)
                             {
