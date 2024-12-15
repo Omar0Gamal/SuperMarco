@@ -203,12 +203,13 @@ public class Main {
 
                             ArrayList<Product> products=SalesEmp.listProducts();
                             for(Product product:products){
-                                System.out.println("Name: "+product.getName()+
-                                        " ID: "+product.getProductId()+
-                                        " Price: "+product.getPrice()+
-                                        " Price before discount: "+product.getPrice()+
-                                        "Discount: "+product.getDiscount()  +
-                                        "Price after discount: "+product.getTotal());
+                                System.out.println("Name: "+product.getName()+"\n"+
+                                        " ID: "+product.getProductId()+"\n"+
+                                        " Price: "+product.getPrice()+"\n"+
+                                        " Price before discount: "+product.getPrice()+"\n"+
+                                        "Discount: "+product.getDiscount() +"\n"+
+                                        "Price after discount: "+product.getTotal()+"\n"+
+                                        "quantity: "+product.getQuantity());
                             }
                             LogManager.log(givenUsername, "listed products");
                             break;
@@ -222,7 +223,7 @@ public class Main {
                             int []quantity=new int[size];
 
                             for(int i=0;i<size;i++){
-                                productID = getIntInput("Enter item: ",input);
+                                productID = getIntInput("Enter item ID: ",input);
                                 Product product=SalesEmp.searchProduct((productID));
                                 if(product!=null) {
                                     items[i] = product;
@@ -343,6 +344,7 @@ public class Main {
                                 case 2:
                                     String newPassword = getStringInput("Enter new password: ", input);
                                     Admin.updatePassword(givenUsername3, newPassword);
+                                    break;
 
                                 default:
                                     System.out.println("Invalid Operation!");
@@ -377,7 +379,7 @@ public class Main {
                             LogManager.log(Admin.mainAdmin.getUsername(), "searched for an employee");
                             break;
 
-                        case 6: //update employee password
+                        /*case 6: //update employee password
 
                             String username2 = getStringInput("Enter username: ",input);
                             String newPass = getStringInput("Enter new password: ",input);
@@ -385,7 +387,7 @@ public class Main {
                             System.out.println("password changed successfully.");
                             db.setEmployees(Employee.employees);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated employee password");
-                            break;
+                            break; */
 
                         case 7: //updating username
 
@@ -397,7 +399,7 @@ public class Main {
 
                         case 8: //updating password
 
-                            String password = getStringInput("Enter password: ",input);
+                            String password = getStringInput("Enter new password: ",input);
                             user.setPassword(password);
                             db.setEmployees(Employee.employees);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated password");

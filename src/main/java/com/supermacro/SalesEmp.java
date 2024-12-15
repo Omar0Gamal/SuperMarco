@@ -37,7 +37,14 @@ public class SalesEmp extends Employee{
             System.out.println("order made :)");
             System.out.println("order id: " + o.getId());
             for (int i = 0; i < o.getItems().length; i++) {
-                System.out.println("product no" + (i + 1) + ": " + items[i] + quantity[i]);
+                System.out.println("product no" + (i + 1) + ": " + items[i].getName() +quantity[i]);
+
+            }
+            for(Product product: InventoryEmp.inventory){
+                for(int i=0;i<o.getItems().length;i++){
+                    if(items[i].getProductId()==product.getProductId())
+                        product.setQuantity(product.getQuantity()-quantity[i]);
+                }
             }
             System.out.println("Total price = " + o.calculateTotal());
         }

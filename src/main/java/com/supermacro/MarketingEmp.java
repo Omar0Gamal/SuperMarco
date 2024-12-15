@@ -2,9 +2,10 @@ package com.supermacro;
 
 
 public class MarketingEmp extends Employee{
+
     public MarketingEmp(String username, String password, int ID)
     {
-        this.username = username;
+        this.username = "MAR_"+username;
         this.password = password;
         this.ID = ID;
         employeeType = empType.MARKETING_EMPLOYEE;
