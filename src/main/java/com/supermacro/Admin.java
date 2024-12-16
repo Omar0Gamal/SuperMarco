@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Admin extends User {
 
-    public static Admin mainAdmin = new Admin();
+    public static Admin mainAdmin = new Admin("admin","admin");
 
-    public Admin (){
-        this.username = "Admin";
-        this.password = "123";
+    public Admin (String username, String password){
+        this.username = username;
+        this.password = password;
         this.employeeType = empType.ADMIN;
     }
 

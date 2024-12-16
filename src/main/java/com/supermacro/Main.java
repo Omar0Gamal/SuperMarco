@@ -90,7 +90,9 @@ public class Main {
                            3- Update Employee
                            4- List Employees
                            5- Search Employee
-                           6- Exit
+                           6- Set Username
+                           7- Set Password
+                           8- Exit
                            """);
     }
 
@@ -126,6 +128,7 @@ public class Main {
         DatabaseManager db = new DatabaseManager();
         InventoryEmp.inventory = db.getProducts();
         Employee.employees = db.getEmployees();
+        Admin.mainAdmin = db.getAdmin();
         Product.count = db.getLastUsedProductID() + 1;
         Admin.idCounter = db.getLastUsedEmpId() + 1;
         int option;
@@ -387,24 +390,25 @@ public class Main {
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated employee password");
                             break; */
 
-                        /*case 7: //updating username
+                        case 6: //updating username
 
                             String username = getStringInput("Enter new username: ",input);
                             user.setUsername(username);
-                            db.setEmployees(Employee.employees);
+                            db.setAdmin(Admin.mainAdmin);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated username");
-                            break;*/
+                            break;
 
-                        /*case 6: //updating password
+                        case 7: //updating password
 
                             String password = getStringInput("Enter new password: ",input);
                             user.setPassword(password);
-                            db.setEmployees(Employee.employees);
+                            db.setAdmin(Admin.mainAdmin);
                             LogManager.log(Admin.mainAdmin.getUsername(), "updated password");
-                            break;*/
+                            break;
 
-                        case 6:
+                        case 8:
                             db.setEmployees(Employee.employees);
+                            db.setAdmin(Admin.mainAdmin);
                             LogManager.log(Admin.mainAdmin.getUsername(), "logged out");
                             System.exit(0);
 

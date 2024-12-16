@@ -16,6 +16,11 @@ public class DatabaseManager {
                 password TEXT NOT NULL,
                 role TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS Admin (
+                id INTEGER PRIMARY KEY,
+                username TEXT NOT NULL,
+                password TEXT NOT NULL
+            );
             CREATE TABLE IF NOT EXISTS Product (
                 id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -145,6 +150,61 @@ public class DatabaseManager {
                 }
                 ps.executeUpdate();
             }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    public Admin getAdmin(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Admin admin = null;
+        try {
+            conn = getConnection();
+
+            ps = conn.prepareStatement("SELECT * FROM Admin;");
+
+            rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                admin = new Admin(username,password);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        if(admin == null){
+            admin = new Admin("admin","admin");
+        }
+        return admin;
+    }
+
+    public void setAdmin(Admin admin){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        try {
+            conn = getConnection();
+            Statement s = conn.createStatement();
+            s.executeUpdate("DELETE FROM Admin;");
+            ps = conn.prepareStatement("INSERT INTO Admin (id, username, password) VALUES (?, ?, ?);");
+            ps.setInt(1,1);
+            ps.setString(2, admin.getUsername());
+            ps.setString(3, admin.getPassword());
+            ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
