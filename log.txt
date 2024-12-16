@@ -1,1 +1,24 @@
-
+admin logged in.
+admin added an employee.
+admin logged out.
+q failed to log in.
+q failed to log in.
+admin logged in.
+admin listed employees.
+admin logged out.
+INV_q logged in.
+INV_q listed products.
+INV_q added a product.
+INV_q added a product.
+INV_q listed products.
+INV_q updated a product.
+INV_q updated a product.
+INV_q logged out.
+MAR_saad logged in.
+MAR_saad made a discount.
+MAR_saad made a discount.
+MAR_saad logged out.
+INV_q logged in.
+INV_q deleted a product.
+INV_q listed products.
+INV_q Listed shortage products.

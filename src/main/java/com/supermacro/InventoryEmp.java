@@ -7,6 +7,7 @@ import static com.supermacro.empType.INVENTORY_EMPLOYEE;
 
 public class InventoryEmp extends Employee{
 
+
     public InventoryEmp(String username, String password, int ID)
     {
         this.username = username;
