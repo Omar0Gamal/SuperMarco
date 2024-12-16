@@ -43,13 +43,13 @@ SuperMarco is a **console-based application** developed in **Java** that integra
 
 ## Team Members ❤️
 This project was proudly built by:
-- Mahmoud Mostafa
-- Farah Samy
-- Hanya Amr
-- Mirley Maged
-- Veronica Edward
-- Omar Gamal
-- Loai Muhammed
+- [Mahmoud Mostafa](https://github.com/7oodzz)
+- [Farah Samy](https://github.com/farah-samy)
+- [Hanya Amr](https://github.com/hanyaamrr)
+- [Mirley Maged](https://github.com/Mirley123352)
+- [Veronica Edward](https://github.com/VeronicaEdward75)
+- [Omar Gamal](https://github.com/Omar0Gamal)
+- [Loai Muhammed](https://github.com/LOAIMUHAMMED)
 
 ## License 📄
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
